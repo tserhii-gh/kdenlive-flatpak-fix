@@ -1,0 +1,369 @@
+diff --git a/src/assets/view/widgets/keyframecontainer.cpp b/src/assets/view/widgets/keyframecontainer.cpp
+index 167e0da..0da3505 100644
+--- a/src/assets/view/widgets/keyframecontainer.cpp
++++ b/src/assets/view/widgets/keyframecontainer.cpp
+@@ -233,7 +233,7 @@ KeyframeContainer::KeyframeContainer(std::shared_ptr<AssetParameterModel> model,
+     auto *menuAction = new KActionMenu(QIcon::fromTheme(QStringLiteral("application-menu")), i18n("Options"), parent);
+     menuAction->setWhatsThis(
+         xi18nc("@info:whatsthis", "Opens a list of further actions for managing keyframes (for example: copy to and pasting keyframes from clipboard)."));
+-    menuAction->setPopupMode(QToolButton::InstantPopup);
++    menuAction->setPopupMode(QToolButton::DelayedPopup);
+     menuAction->addAction(seekKeyframe);
+     menuAction->addAction(copy);
+     menuAction->addAction(paste);
+diff --git a/src/bin/bin.cpp b/src/bin/bin.cpp
+index b26a4c5..2cc6693 100644
+--- a/src/bin/bin.cpp
++++ b/src/bin/bin.cpp
+@@ -1322,7 +1322,7 @@ Bin::Bin(std::shared_ptr<ProjectItemModel> model, QWidget *parent, bool isMainBi
+     // Settings menu
+     auto *settingsAction = new KActionMenu(QIcon::fromTheme(QStringLiteral("application-menu")), i18n("Options"), this);
+     settingsAction->setWhatsThis(xi18nc("@info:whatsthis", "Opens a menu to configure the project bin (e.g. view mode, sort, show rating)."));
+-    settingsAction->setPopupMode(QToolButton::InstantPopup);
++    settingsAction->setPopupMode(QToolButton::DelayedPopup);
+     settingsAction->addAction(zoomWidget);
+     settingsAction->addAction(m_listTypeAction);
+     settingsAction->addAction(sortAction);
+@@ -1371,7 +1371,7 @@ Bin::Bin(std::shared_ptr<ProjectItemModel> model, QWidget *parent, bool isMainBi
+     m_filterMenu = new QMenu(i18n("Filter"), this);
+     m_filterButton = new QToolButton;
+     m_filterButton->setCheckable(true);
+-    m_filterButton->setPopupMode(QToolButton::MenuButtonPopup);
++    m_filterButton->setPopupMode(QToolButton::DelayedPopup);
+     m_filterButton->setIcon(QIcon::fromTheme(QStringLiteral("view-filter")));
+     m_filterButton->setToolTip(i18n("Filter"));
+     m_filterButton->setWhatsThis(xi18nc("@info:whatsthis", "Filter the project bin contents. Click on the filter icon to toggle the filter display. Click on "
+@@ -3796,7 +3796,7 @@ void Bin::setupMenu()
+     m_addButton = new QToolButton(this);
+     m_addButton->setMenu(m);
+     m_addButton->setDefaultAction(m_addClip);
+-    m_addButton->setPopupMode(QToolButton::MenuButtonPopup);
++    m_addButton->setPopupMode(QToolButton::DelayedPopup);
+     m_toolbar->insertWidget(m_upAction, m_addButton);
+     m_menu = new QMenu(this);
+     if (m_isMainBin) {
+diff --git a/src/bin/mediabrowser.cpp b/src/bin/mediabrowser.cpp
+index d438f93..64520d4 100644
+--- a/src/bin/mediabrowser.cpp
++++ b/src/bin/mediabrowser.cpp
+@@ -93,7 +93,7 @@ MediaBrowser::MediaBrowser(QWidget *parent)
+     configMenu->addAction(viewMenu);
+     but->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
+     but->setMenu(configMenu);
+-    but->setPopupMode(QToolButton::InstantPopup);
++    but->setPopupMode(QToolButton::DelayedPopup);
+ 
+     // Spacer
+     QWidget *empty = new QWidget(this);
+diff --git a/src/mainwindow.cpp b/src/mainwindow.cpp
+index 55eabbf..55301b1 100644
+--- a/src/mainwindow.cpp
++++ b/src/mainwindow.cpp
+@@ -519,7 +519,7 @@ void MainWindow::init()
+     basketButton->setMenu(menu);
+     basketButton->setToolButtonStyle(toolBar()->toolButtonStyle());
+     basketButton->setDefaultAction(widgetlist);
+-    basketButton->setPopupMode(QToolButton::InstantPopup);
++    basketButton->setPopupMode(QToolButton::DelayedPopup);
+     // basketButton->setText(i18n("Favorite Effects"));
+     basketButton->setToolTip(i18n("Favorite Effects"));
+     basketButton->setWhatsThis(
+@@ -1181,7 +1181,7 @@ void MainWindow::setupActions()
+     tlsettings->addAction(splitView2);
+ 
+     auto *timelineSett = new QToolButton(this);
+-    timelineSett->setPopupMode(QToolButton::InstantPopup);
++    timelineSett->setPopupMode(QToolButton::DelayedPopup);
+     timelineSett->setMenu(tlsettings);
+     timelineSett->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
+     auto *tlButtonAction = new QWidgetAction(this);
+@@ -1200,7 +1200,7 @@ void MainWindow::setupActions()
+     }
+     connect(m_timeFormatButton, &KSelectAction::indexTriggered, this, &MainWindow::slotUpdateTimecodeFormat);
+     m_timeFormatButton->setToolBarMode(KSelectAction::MenuMode);
+-    m_timeFormatButton->setToolButtonPopupMode(QToolButton::InstantPopup);
++    m_timeFormatButton->setToolButtonPopupMode(QToolButton::DelayedPopup);
+     addAction(QStringLiteral("timeline_timecode"), m_timeFormatButton);
+     actionCollection()->setShortcutsConfigurable(m_timeFormatButton, false);
+ 
+diff --git a/src/mltcontroller/clippropertiescontroller.cpp b/src/mltcontroller/clippropertiescontroller.cpp
+index 56f4253..2ec7487 100644
+--- a/src/mltcontroller/clippropertiescontroller.cpp
++++ b/src/mltcontroller/clippropertiescontroller.cpp
+@@ -416,7 +416,7 @@ QHBoxLayout *ClipPropertiesController::proxyProperty(const QString &label, const
+     tb->setToolTip(i18n("Proxy options"));
+     tb->setMenu(pMenu);
+     tb->setAutoRaise(true);
+-    tb->setPopupMode(QToolButton::InstantPopup);
++    tb->setPopupMode(QToolButton::DelayedPopup);
+ 
+     QAction *ac = new QAction(QIcon::fromTheme(QStringLiteral("document-open")), i18n("Open folder…"), this);
+     connect(ac, &QAction::triggered, this, [this, propertyName]() {
+diff --git a/src/monitor/monitor.cpp b/src/monitor/monitor.cpp
+index c3d3674..4d53ff2 100644
+--- a/src/monitor/monitor.cpp
++++ b/src/monitor/monitor.cpp
+@@ -303,7 +303,7 @@ Monitor::Monitor(Kdenlive::MonitorId id, MonitorManager *manager, QWidget *paren
+         m_toolbar->addAction(manager->getAction(QStringLiteral("insert_project_tree")));
+         m_toolbar->addSeparator();
+         m_streamsButton = new QToolButton(this);
+-        m_streamsButton->setPopupMode(QToolButton::InstantPopup);
++        m_streamsButton->setPopupMode(QToolButton::DelayedPopup);
+         m_streamsButton->setIcon(QIcon::fromTheme(QStringLiteral("speaker")));
+         m_streamsButton->setToolTip(i18n("Audio streams"));
+         m_streamAction = m_toolbar->addWidget(m_streamsButton);
+@@ -412,7 +412,7 @@ Monitor::Monitor(Kdenlive::MonitorId id, MonitorManager *manager, QWidget *paren
+     connect(m_playAction, &QAction::triggered, this, &Monitor::slotSwitchPlay);
+ 
+     playButton->setMenu(m_playMenu);
+-    playButton->setPopupMode(QToolButton::MenuButtonPopup);
++    playButton->setPopupMode(QToolButton::DelayedPopup);
+     m_toolbar->addWidget(playButton);
+ 
+     // Per monitor forward action
+@@ -422,7 +422,7 @@ Monitor::Monitor(Kdenlive::MonitorId id, MonitorManager *manager, QWidget *paren
+ 
+     m_configMenuAction = new KActionMenu(QIcon::fromTheme(QStringLiteral("application-menu")), i18n("More Options…"), m_toolbar);
+     m_configMenuAction->setWhatsThis(xi18nc("@info:whatsthis", "Opens the list of project/clip monitor options (e.g. audio volume, monitor size)."));
+-    m_configMenuAction->setPopupMode(QToolButton::InstantPopup);
++    m_configMenuAction->setPopupMode(QToolButton::DelayedPopup);
+     connect(m_configMenuAction->menu(), &QMenu::aboutToShow, this, &Monitor::updateMarkers);
+ 
+     playButton->setDefaultAction(m_playAction);
+@@ -1372,11 +1372,12 @@ void Monitor::slotExtractCurrentFrame(QString frameName, bool addToProject, bool
+         // the suggestion bases on the clip file name currently shown.
+         // Finally, the frame number is added to this suggestion, prefixed
+         // with "-f", so we get something like clip-f#.png.
+-        QString suggestedImageName =
+-            QFileInfo(currentController() ? currentController()->clipName()
+-                                          : pCore->currentDoc()->url().isValid() ? pCore->currentDoc()->url().fileName() : i18n("untitled"))
+-                .completeBaseName() +
+-            QStringLiteral("-f") + QString::number(m_glMonitor->getCurrentPos()).rightJustified(6, QLatin1Char('0')) + QStringLiteral(".png");
++        QString suggestedImageName = QFileInfo(currentController()                    ? currentController()->clipName()
++                                               : pCore->currentDoc()->url().isValid() ? pCore->currentDoc()->url().fileName()
++                                                                                      : i18n("untitled"))
++                                         .completeBaseName() +
++                                     QStringLiteral("-f") + QString::number(m_glMonitor->getCurrentPos()).rightJustified(6, QLatin1Char('0')) +
++                                     QStringLiteral(".png");
+         frameName = QFileInfo(frameName, suggestedImageName).fileName();
+     }
+ 
+@@ -3246,7 +3247,7 @@ void Monitor::applyTimecodeDisplayStyling()
+     pal.setColor(QPalette::Text, bg);
+     m_timePos->setPalette(pal);
+     m_timePos->setBold(isActive);
+-    Q_EMIT getControllerProxy() -> activeMonitorChanged();
++    Q_EMIT getControllerProxy()->activeMonitorChanged();
+ }
+ 
+ void Monitor::updatePowerManagement()
+diff --git a/src/monitor/recmanager.cpp b/src/monitor/recmanager.cpp
+index 5f37208..d554364 100644
+--- a/src/monitor/recmanager.cpp
++++ b/src/monitor/recmanager.cpp
+@@ -76,7 +76,7 @@ RecManager::RecManager(Monitor *parent)
+     m_audioCaptureButton = new QToolButton(parent);
+     m_audioCaptureButton->setMenu(menu);
+     m_audioCaptureButton->setToolTip(i18n("Audio Capture Volume"));
+-    m_audioCaptureButton->setPopupMode(QToolButton::InstantPopup);
++    m_audioCaptureButton->setPopupMode(QToolButton::DelayedPopup);
+     QIcon icon;
+     if (KdenliveSettings::audiocapturevolume() == 0) {
+         icon = QIcon::fromTheme(QStringLiteral("audio-volume-muted"));
+diff --git a/src/ui/clipstabilize_ui.ui b/src/ui/clipstabilize_ui.ui
+index 0599170..abb954b 100644
+--- a/src/ui/clipstabilize_ui.ui
++++ b/src/ui/clipstabilize_ui.ui
+@@ -61,7 +61,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+        <normaloff>.</normaloff>.</iconset>
+      </property>
+      <property name="popupMode">
+-      <enum>QToolButton::InstantPopup</enum>
++      <enum>QToolButton::DelayedPopup</enum>
+      </property>
+     </widget>
+    </item>
+diff --git a/src/ui/collapsiblewidget_ui.ui b/src/ui/collapsiblewidget_ui.ui
+index e6ed2be..8b13c97 100644
+--- a/src/ui/collapsiblewidget_ui.ui
++++ b/src/ui/collapsiblewidget_ui.ui
+@@ -189,7 +189,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+             <string>...</string>
+            </property>
+            <property name="popupMode">
+-            <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++            <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+            </property>
+            <property name="autoRaise">
+             <bool>true</bool>
+@@ -202,7 +202,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+             <string>...</string>
+            </property>
+            <property name="popupMode">
+-            <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++            <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+            </property>
+            <property name="autoRaise">
+             <bool>true</bool>
+diff --git a/src/ui/editsub_ui.ui b/src/ui/editsub_ui.ui
+index 1f663ac..79362a0 100644
+--- a/src/ui/editsub_ui.ui
++++ b/src/ui/editsub_ui.ui
+@@ -295,7 +295,7 @@
+                    <iconset theme="view-more-symbolic"/>
+                   </property>
+                   <property name="popupMode">
+-                   <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++                   <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+                   </property>
+                  </widget>
+                 </item>
+@@ -363,7 +363,7 @@
+                    <iconset theme="application-menu"/>
+                   </property>
+                   <property name="popupMode">
+-                   <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++                   <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+                   </property>
+                  </widget>
+                 </item>
+diff --git a/src/ui/exportguidesdialog_ui.ui b/src/ui/exportguidesdialog_ui.ui
+index 73714e4..21e9ee5 100644
+--- a/src/ui/exportguidesdialog_ui.ui
++++ b/src/ui/exportguidesdialog_ui.ui
+@@ -82,7 +82,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+             <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
+           </property>
+           <property name="popupMode">
+-           <enum>QToolButton::InstantPopup</enum>
++           <enum>QToolButton::DelayedPopup</enum>
+           </property>
+           <property name="arrowType">
+            <enum>Qt::NoArrow</enum>
+diff --git a/src/ui/guideslist_ui.ui b/src/ui/guideslist_ui.ui
+index 73af26c..70e5d75 100644
+--- a/src/ui/guideslist_ui.ui
++++ b/src/ui/guideslist_ui.ui
+@@ -24,7 +24,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+       <iconset theme="view-sort"/>
+      </property>
+      <property name="popupMode">
+-      <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++      <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+@@ -94,7 +94,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+         <string>...</string>
+        </property>
+        <property name="popupMode">
+-        <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++        <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+@@ -150,7 +150,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+          <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
+        </property>
+        <property name="popupMode">
+-        <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++        <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+diff --git a/src/ui/managesubtitles_ui.ui b/src/ui/managesubtitles_ui.ui
+index c9bd63b..e1346e7 100644
+--- a/src/ui/managesubtitles_ui.ui
++++ b/src/ui/managesubtitles_ui.ui
+@@ -82,7 +82,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+           <iconset theme="application-menu"/>
+          </property>
+          <property name="popupMode">
+-          <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++          <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+          </property>
+          <property name="autoRaise">
+           <bool>false</bool>
+diff --git a/src/ui/renderwidget_ui.ui b/src/ui/renderwidget_ui.ui
+index 9d0363e..7f00414 100644
+--- a/src/ui/renderwidget_ui.ui
++++ b/src/ui/renderwidget_ui.ui
+@@ -914,7 +914,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+           <string>Share</string>
+          </property>
+          <property name="popupMode">
+-          <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++          <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+diff --git a/src/ui/textbasededit_ui.ui b/src/ui/textbasededit_ui.ui
+index bb61cee..e38a6c8 100644
+--- a/src/ui/textbasededit_ui.ui
++++ b/src/ui/textbasededit_ui.ui
+@@ -70,7 +70,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+         <string>...</string>
+        </property>
+        <property name="popupMode">
+-        <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
++        <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+@@ -162,7 +162,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+          <string>...</string>
+         </property>
+         <property name="popupMode">
+-         <enum>QToolButton::ToolButtonPopupMode::MenuButtonPopup</enum>
++         <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+diff --git a/src/ui/titlewidget_ui.ui b/src/ui/titlewidget_ui.ui
+index cae3e01..d307ba7 100644
+--- a/src/ui/titlewidget_ui.ui
++++ b/src/ui/titlewidget_ui.ui
+@@ -173,7 +173,7 @@ SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+         <string>Create</string>
+        </property>
+        <property name="popupMode">
+-        <enum>QToolButton::ToolButtonPopupMode::MenuButtonPopup</enum>
++        <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonStyle::ToolButtonTextOnly</enum>
+diff --git a/src/widgets/markercategorybutton.cpp b/src/widgets/markercategorybutton.cpp
+index 698bca2..104fd29 100644
+--- a/src/widgets/markercategorybutton.cpp
++++ b/src/widgets/markercategorybutton.cpp
+@@ -17,7 +17,7 @@ MarkerCategoryButton::MarkerCategoryButton(QWidget *parent)
+ {
+     setCheckable(false);
+     setIcon(QIcon::fromTheme(QLatin1String("view-filter")));
+-    setPopupMode(QToolButton::InstantPopup);
++    setPopupMode(QToolButton::DelayedPopup);
+     m_menu = new QMenu(this);
+     setMenu(m_menu);
+     if (pCore) {
+@@ -30,7 +30,7 @@ MarkerCategoryButton::MarkerCategoryButton(QWidget *parent)
+ void MarkerCategoryButton::enableFilterMode()
+ {
+     setCheckable(true);
+-    setPopupMode(QToolButton::MenuButtonPopup);
++    setPopupMode(QToolButton::DelayedPopup);
+ }
+ 
+ void MarkerCategoryButton::categorySelected(QAction *ac)
+diff --git a/src/widgets/progressbutton.cpp b/src/widgets/progressbutton.cpp
+index 2ffd923..40b463a 100644
+--- a/src/widgets/progressbutton.cpp
++++ b/src/widgets/progressbutton.cpp
+@@ -16,7 +16,7 @@ ProgressButton::ProgressButton(const QString &text, double max, QWidget *parent)
+     , m_defaultAction(nullptr)
+     , m_max(max)
+ {
+-    setPopupMode(MenuButtonPopup);
++    setPopupMode(DelayedPopup);
+     m_progress = width() - 6;
+     m_iconSize = height() - 4;
+     m_progressFont = font();

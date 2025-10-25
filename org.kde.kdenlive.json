@@ -174,8 +174,7 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DCMAKE_INSTALL_LIBDIR=lib"
+                "-DCMAKE_BUILD_TYPE=Release"
             ],
             "sources": [
                 {
@@ -224,7 +223,6 @@
             "name": "inih",
             "buildsystem": "meson",
             "config-opts": [
-                "-Dlibdir=lib",
                 "-Ddefault_library=shared",
                 "-Ddistro_install=true",
                 "-Dwith_INIReader=true"
@@ -248,7 +246,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
             ],
             "cleanup": [
@@ -293,7 +290,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release"
             ],
             "sources": [
@@ -316,7 +312,6 @@
             "builddir": true,
             "no-make-install": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DBUILD_TESTING=OFF"
             ],
@@ -362,7 +357,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DBUILD_LV2_PLUGIN=OFF",
                 "-DBUILD_VST_PLUGIN=OFF"
             ],
@@ -400,7 +394,6 @@
             "builddir": true,
             "subdir": "source",
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DENABLE_CLI=OFF"
             ],
@@ -488,7 +481,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DBUILD_SAMPLES=OFF",
                 "-DBUILD_TESTS=OFF",
@@ -516,7 +508,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DBUILD_SAMPLES=OFF",
                 "-DBUILD_TESTS=OFF",
@@ -627,7 +618,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DOPENCV_GENERATE_PKGCONFIG=ON",
                 "-DBUILD_LIST=tracking,dnn"
@@ -663,9 +653,6 @@
         {
             "name": "rubberband",
             "buildsystem": "meson",
-            "config-opts": [
-                "-Dlibdir=lib"
-            ],
             "sources": [
                 {
                     "type": "archive",
@@ -685,7 +672,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DMOD_GLAXNIMATE=OFF",
                 "-DMOD_GLAXNIMATE_QT6=ON",
                 "-DMOD_MOVIT=OFF",
@@ -705,7 +691,6 @@
             "name": "Imath",
             "buildsystem": "cmake-ninja",
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DBUILD_TESTING=OFF",
                 "-DPYTHON=OFF"
             ],
@@ -722,7 +707,6 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DOTIO_FIND_IMATH=ON",
                 "-DOTIO_DEPENDENCIES_INSTALL=OFF",
                 "-DBUILD_TESTING=OFF"
@@ -762,8 +746,7 @@
                 },
                 {
                     "type": "patch",
-                    "path": "fix-popup-mutter.patch",
-                    "strip-level": 1
+                    "path": "fix-popup-mutter.patch"
                 }
             ]
         }
